@@ -74,7 +74,7 @@ function onSelect() {
   if (reticle.visible) {
     // Ваш об'єкт буде з'являтись на тому місці, де натиснете пальчиком по поверхні
     // Замініть реалізацію об'єкта на той, що у вашому індивідуальному завданні
-    const geometry = new THREE.TorusGeometry(0.05, 0.02, 16, 32);
+    const geometry = new THREE.TorusGeometry(0.1, 0.04, 10, 5);
     const material = new THREE.MeshStandardMaterial({
       color: 0xffffff * Math.random(), // Рандомний колір
       metalness: Math.random(),
