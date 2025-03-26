@@ -30,11 +30,11 @@ function init() {
     container.appendChild(renderer.domElement);
             
     // Світло
-    const directionalLight1 = new THREE.DirectionalLight(0xffffff, 4); 
+    const directionalLight1 = new THREE.DirectionalLight(0xffffff, 1); 
     directionalLight1.position.set(5, 5, 0);
     scene.add(directionalLight1);
 
-    const directionalLight2 = new THREE.DirectionalLight(0xffffff, 0.5); 
+    const directionalLight2 = new THREE.DirectionalLight(0xffffff, 0.1); 
     directionalLight2.position.set(-5, -5, 0);
     scene.add(directionalLight2);
     
@@ -42,7 +42,7 @@ function init() {
     pointLight.position.set(-3, -3, 0);
     scene.add(pointLight);
 
-    const ambientLight = new THREE.AmbientLight(0xffffff, 1.2); 
+    const ambientLight = new THREE.AmbientLight(0xffffff, 0.2); 
     scene.add(ambientLight);
 
     const textureLoader = new THREE.TextureLoader();
@@ -51,13 +51,13 @@ function init() {
     const dodecahedronGeometry = new THREE.DodecahedronGeometry(1.5, 1);
     // Матеріал для першого об'єкту 
     const dodecahedronMaterial = new THREE.MeshPhysicalMaterial({
-        color: 0x87CEEB, 
+        color: 0x663399, 
         transparent: true,
-        opacity: 0.5,
-        roughness: 0.4,
-        metalness: 0.8,
-        reflectivity: 1.0,
-        transmission: 0.8,
+        opacity: 0.8,
+        roughness: 0.2,
+        metalness: 0.7,
+        reflectivity: 0.5,
+        transmission: 1,
     });
     // Створюємо меш
     dodecahedronMesh = new THREE.Mesh(dodecahedronGeometry, dodecahedronMaterial);
@@ -65,7 +65,7 @@ function init() {
     dodecahedronMesh.position.z = -3;
     scene.add(dodecahedronMesh);
 
-    // 2. Створюємо об'єкт Dodecahedron
+    // 2. Створюємо об'єкт Ring
     const ringGeometry = new THREE.RingGeometry(0.5, 1, 50);
 
     const texture = textureLoader.load(
@@ -74,9 +74,8 @@ function init() {
     // Матеріал для другого
     const ringMaterial = new THREE.MeshStandardMaterial({
         map: texture,
-        emissiveIntensity: 3, 
-        metalness: 0.5,
-        roughness: 0.2,
+        roughness: 0,
+        metalness: 0,
         side: THREE.DoubleSide,
     });
     // Створюємо наступний меш
@@ -85,12 +84,12 @@ function init() {
     scene.add(ringMesh);
 
     // 3. Створюємо об'єкт Tetrahedron
-    const tetrahedronGeometry = new THREE.TetrahedronGeometry(0.5, 1);
+    const tetrahedronGeometry = new THREE.TetrahedronGeometry(0.5, 0);
     // Матеріал для третього
     const tetrahedronMaterial = new THREE.MeshStandardMaterial({
-        color: 0xffd700,
-        metalness: 1,
-        roughness: 0.3,
+        color: 0xDF92B8,
+        roughness: 1,
+        metalness: 0.5,
     });
     // Створюємо наступний меш
     tetrahedronMesh = new THREE.Mesh(tetrahedronGeometry, tetrahedronMaterial);
@@ -126,11 +125,19 @@ function render() {
     rotateObjects();
     renderer.render(scene, camera);
 }
+
+let direction = 1;
     
 function rotateObjects() {
   dodecahedronMesh.rotation.y = dodecahedronMesh.rotation.y - 0.01;
-  ringMesh.rotation.z = ringMesh.rotation.z - 0.01;
   ringMesh.rotation.x = ringMesh.rotation.x - 0.01;
-  tetrahedronMesh.rotation.x = tetrahedronMesh.rotation.x - 0.01;
+
+  if (tetrahedronMesh.position.x <= 2) {
+    direction = 1;
+  } else if (tetrahedronMesh.position.x >= 4) {
+    direction = -1;
+  }
+
+  tetrahedronMesh.position.x = tetrahedronMesh.position.x + 0.01 * direction;
 }
 
