@@ -5,6 +5,7 @@ import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
 let camera, scene, renderer;
 let dodecahedronMesh, ringMesh, tetrahedronMesh;
 let controls;
+
 export function start() {
   init();
   animate();
