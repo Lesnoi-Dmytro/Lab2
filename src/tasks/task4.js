@@ -103,7 +103,7 @@ function onSelect() {
 
         model.rotation.copy(reticle.rotation);
 
-        model.scale.set(0.01, 0.01, 0.01);
+        model.scale.set(0.05, 0.05, 0.05);
 
         scene.add(model);
 
