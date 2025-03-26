@@ -69,10 +69,7 @@ function init() {
     const ringGeometry = new THREE.RingGeometry(0.5, 1, 50);
 
     const texture = textureLoader.load(
-      'https://raw.githubusercontent.com/Lesnoi-Dmytro/Lab2/refs/heads/master/public/stones.png',
-      (tex) => console.log('Texture loaded:', tex),
-      undefined,
-      (err) => console.error('Texture loading error:', err)
+      'https://lesnoi-dmytro.github.io/Lab2_VR-AR_sources/stones.png'
     );
     // Матеріал для другого
     const ringMaterial = new THREE.MeshStandardMaterial({
